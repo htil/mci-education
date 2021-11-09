@@ -42,7 +42,7 @@ var BlocklyInterface = function(){
         //Blockly.JavaScript.addReservedWords('highlightBlock');
         window.latestCode = Blockly.JavaScript.workspaceToCode(window.workspace);
         let xml = Blockly.Xml.workspaceToDom(window.workspace)
-        console.log(xml)
+        // console.log(xml)
 
         // sync code. comment to stop synching
         window.textEditor.setValue(window.latestCode)
@@ -55,6 +55,7 @@ var BlocklyInterface = function(){
          // Pan robot
         var wrapper = function(cmd) {
             window.pan(cmd)
+            console.log("PAN ", cmd)
         }
         interpreter.setProperty(globalObject, 'pan', 
             interpreter.createNativeFunction(wrapper));
@@ -63,6 +64,11 @@ var BlocklyInterface = function(){
         // Print to console
         var wrapper = function(cmd) {
             console.log(cmd)
+            if (cmd == 'jump') {
+                jumpAction = true;
+            } else {
+                jumpAction = false;
+            }
         }
         interpreter.setProperty(globalObject, 'print', 
             interpreter.createNativeFunction(wrapper));
@@ -144,26 +150,29 @@ var BlocklyInterface = function(){
 
 
     window.runBlocklyCode = function() {
-        //console.log("latest Code: ", window.latestCode)
+        console.log("latest Code: ", window.latestCode)
+        console.log("Editor mode? ", window.editorMode);
+        console.log("Text code is ", window.textEditor.getValue());
         if (window.editorMode == "block"){
             window.interpreter = new Interpreter(window.latestCode, window.initApi);
         } else {
             // use latest text code
             var textCode = window.textEditor.getValue()
             window.interpreter = new Interpreter(textCode, window.initApi);
+            console.log("HERE")
         }
 
         window.runner = function() {
 
             if (!window.interpreter) return
 
-            //console.log("running", window.interpreter)
+            // console.log("running", window.interpreter)
             var hasMore =  window.interpreter.run();
-            //console.log("hasMore: ", hasMore)
+            console.log("hasMore: ", hasMore)
             if (hasMore) {
                 setTimeout(window.runner, 10);
             } else {
-                console.log("window.resetInterpreter")
+                // console.log("window.resetInterpreter")
                 window.resetInterpreter()
             }
         }
@@ -190,7 +199,7 @@ BlocklyInterface.prototype.init = function() {
 }
 
 window.runBlockCode = function() {
-   if (window.interprete == null){
+   if (window.interprete == null) {
        //this.runButton = 'disabled'
        //console.log("setTimeout(window.runBlocklyCode, 1)")
        setTimeout(window.runBlocklyCode, 1)

@@ -17,7 +17,10 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
 
+  <script src="https://cdn.plot.ly/plotly-2.3.1.min.js"></script>
+  <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser-arcade-physics.min.js"></script>
 <script src="js/acorn_interpreter.js"></script>
 <script src="https://unpkg.com/blockly/blockly_compressed.js"></script>
 <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
@@ -67,39 +70,39 @@
 <body style="background-color: lightgrey;">
   
 <div style="position: absolute; right: 10px; top: 20px">
-  <button id="runButton" class="huge circular ui green icon button" style="display: inherit, margin-left: auto">
+  <button id="runButton" class="huge circular ui green icon button" style="display: inherit; margin-left: auto">
     <i class="icon play"></i>
   </button>
 </div>
 
 
 <div style="position: absolute; right: 10px; top: 80px">
-  <button id="runButton" class="huge circular ui red icon button" style="display: inherit, margin-left: auto">
+  <button id="runButton" class="huge circular ui red icon button" style="display: inherit; margin-left: auto">
     <i class="icon stop"></i>
   </button>
 </div>
 
 <div style="position: absolute; right: 10px; top: 140px">
-  <button id="bluetooth" class="huge circular ui blue icon button" style="display: inherit, margin-left: auto">
+  <button id="bluetooth" class="huge circular ui blue icon button" style="display: inherit; margin-left: auto">
     <i class="icon bluetooth"></i>
   </button>
 </div>
 
 
 <div style="position: absolute; right: 10px; top: 200px">
-  <button id="textfile" class="huge circular ui orange icon button" style="display: inherit, margin-left: auto">
+  <button id="textfile" class="huge circular ui orange icon button" style="display: inherit; margin-left: auto">
     <i class="file alternate icon"></i>
   </button>
 </div>
 
 <div style="position: absolute; right: 10px; top: 260px">
-  <button id="blockFile" class="huge circular ui purple icon button" style="display: inherit, margin-left: auto">
+  <button id="blockFile" class="huge circular ui purple icon button" style="display: inherit; margin-left: auto">
     <i class="th icon"></i>
   </button>
 </div>
 
 <div style="position: absolute; right: 10px; top: 320px">
-  <button id="saveFile" class="huge circular ui pink icon button" style="display: inherit, margin-left: auto">
+  <button id="saveFile" class="huge circular ui pink icon button" style="display: inherit; margin-left: auto">
     <i class="save icon"></i>
   </button>
 </div>
@@ -118,7 +121,7 @@
     
     <div  class="ui raised card centered" style="width: 100%; padding: 5px;">
     
-      <div  id="speechHolder" style="display:inline;  max-height: 400px;">
+      <!-- <div  id="speechHolder" style="display:inline;  max-height: 400px;">
        
       
       </div>
@@ -126,7 +129,7 @@
       
       <div  id="videoHolder" style="display:inline;  max-height: 400px;">
         <video id="video" width="350px" height="300" autoplay muted style="z-index: 0; position:absolute; visibility: hidden;"></video>
-      </div>
+      </div> -->
 
       <!--
       <div  id="rawGraph" style="display:inline;  max-height: 400px;">
@@ -327,6 +330,8 @@
 </xml>
 
 
+
+
 </body>
 <!--
 <script type="text/javascript" src="js/bci.min.js"></script>
@@ -345,5 +350,60 @@
     value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
     language: 'javascript'
   });
+</script>
+
+<script type="text/javascript">
+  const pred = "";
+  const client = new IOClient('http://localhost:5000')
+  client.on('connect', () => {
+      console.log('Connected to Server')
+      client.send('stream', 'hi')
+  })
+
+  client.on('data', (...args) => {
+      const time = new Date()
+      console.log("DATA: ", args[0].data);
+      let x_traces = []
+      let y_traces = []
+      for (let i = 0; i < args[0].data.length; i++) {
+          x_traces.push([time])
+          y_traces.push([args[0].data[i]])
+      }
+      const next = {
+          x: x_traces,
+          y: y_traces
+      }
+      const lower = time.setSeconds(time.getSeconds() - 15)
+      const upper = time.setSeconds(time.getSeconds() + 15)
+      const view = {
+          xaxis: {
+              type: 'date',
+              range: [lower, upper]
+          }
+      }
+  })
+
+  client.on('prediction', (args) => {
+      console.log("PRED: ", args);
+  })
+  
+  /*setInterval(() => {
+      const time = new Date()
+      const next = {
+          x: [[new Date()]],
+          y: [[Math.random()*50]]
+      }
+      const lower = time.setSeconds(time.getSeconds() - 15)
+      const upper = time.setSeconds(time.getSeconds() + 15)
+      const view = {
+          xaxis: {
+              type: 'date',
+              range: [lower, upper]
+          }
+      }
+      Plotly.relayout('chart', view)
+      Plotly.extendTraces('chart', next, [0])
+  }, 10)*/
+
 </script>
 </html>

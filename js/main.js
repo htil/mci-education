@@ -68,76 +68,78 @@ setEditor = function(doc, mode) {
 
 // Wait until document is finished loading before starting App
 $(document).ready(function(){ 
+    console.log("LOADED MAIN")
 	var main = new Main();
     main.start()
     //vid.start()
     //speech.recognizeSpeech()
 
     
-    updateDisplay(document, {
-        psdGraph: "inline", 
-        bpGraph: "none",
-        rawGraph: "none",
-        videoHolder: "none",
-        speechHolder: "none"
-    })
+    // updateDisplay(document, {
+    //     psdGraph: "inline", 
+    //     bpGraph: "none",
+    //     rawGraph: "none",
+    //     videoHolder: "none",
+    //     speechHolder: "none"
+    // })
     
 
 
-    // Event
-    $("#rawEEG").click((e) => {
-        updateDisplay(document, {
-            psdGraph: "none", 
-            bpGraph: "none",
-            rawGraph: "inline",
-            videoHolder: "none",
-            speechHolder: "none"
-        })
-    })
+    // // Event
+    // $("#rawEEG").click((e) => {
+    //     updateDisplay(document, {
+    //         psdGraph: "none", 
+    //         bpGraph: "none",
+    //         rawGraph: "inline",
+    //         videoHolder: "none",
+    //         speechHolder: "none"
+    //     })
+    // })
 
 
-    $("#psd").click((e) => {
-        updateDisplay(document, {
-            psdGraph: "inline", 
-            bpGraph: "none",
-            rawGraph: "none",
-            videoHolder: "none",
-            speechHolder: "none"
-        })
-    })
+    // $("#psd").click((e) => {
+    //     updateDisplay(document, {
+    //         psdGraph: "inline", 
+    //         bpGraph: "none",
+    //         rawGraph: "none",
+    //         videoHolder: "none",
+    //         speechHolder: "none"
+    //     })
+    // })
 
-    $("#bandpower").click((e) => {       
-       updateDisplay(document, {
-            psdGraph: "none", 
-            bpGraph: "inline",
-            rawGraph: "none",
-            videoHolder: "none",
-            speechHolder: "none"
-        })
-    })
+    // $("#bandpower").click((e) => {       
+    //    updateDisplay(document, {
+    //         psdGraph: "none", 
+    //         bpGraph: "inline",
+    //         rawGraph: "none",
+    //         videoHolder: "none",
+    //         speechHolder: "none"
+    //     })
+    // })
 
-    $("#camera").click((e) => {       
-        updateDisplay(document, {
-             psdGraph: "none", 
-             bpGraph: "none",
-             rawGraph: "none",
-             videoHolder: "inline",
-             speechHolder: "none"
-         })
-     })
+    // $("#camera").click((e) => {       
+    //     updateDisplay(document, {
+    //          psdGraph: "none", 
+    //          bpGraph: "none",
+    //          rawGraph: "none",
+    //          videoHolder: "inline",
+    //          speechHolder: "none"
+    //      })
+    //  })
 
 
-     $("#speech").click((e) => { 
-        updateDisplay(document, {
-            psdGraph: "none", 
-            bpGraph: "none",
-            rawGraph: "none",
-            videoHolder: "none",
-            speechHolder: "inline"
-        })
-     })
+    //  $("#speech").click((e) => { 
+    //     updateDisplay(document, {
+    //         psdGraph: "none", 
+    //         bpGraph: "none",
+    //         rawGraph: "none",
+    //         videoHolder: "none",
+    //         speechHolder: "inline"
+    //     })
+    //  })
 
-     $("#textfile").click((e) => { 
+     $("#textfile").click((e) => {
+         console.log("want text")
         setEditor(document, "text")
         window.editorMode = "text"
      })
