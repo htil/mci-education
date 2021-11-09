@@ -62,10 +62,12 @@ var BlocklyInterface = function(){
 
 
         // Print to console
-        var wrapper = function(cmd) {
-            console.log(cmd)
+        var wrapper = function(cmd, something) {
+            console.log(cmd, something)
+            threshold = cmd;
             if (cmd == 'jump') {
-                jumpAction = true;
+                // jumpAction = true;
+                emgData
             } else {
                 jumpAction = false;
             }

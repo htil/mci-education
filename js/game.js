@@ -135,7 +135,7 @@ function update(time, delta) {
   }
   // jump 
   // console.log(cursors.up.isDown && player.body.onFloor())
-  if (jumpAction)
+  if (emgData > threshold)
   {
       player.body.setVelocityY(-500);
   }

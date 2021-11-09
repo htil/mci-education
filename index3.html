@@ -27,6 +27,11 @@
 <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
 <script src="https://unpkg.com/blockly/msg/en.js"></script>
 
+<script>
+  let emgData = "";
+  let threshold = 1;
+</script>
+
 <script src="js/wait_block.js"></script>
 <!--<script src="js/ros.js"></script> -->
 <!--<script src="js/fili.min.js"></script>-->
@@ -352,6 +357,8 @@
   });
 </script>
 
+<script src="js/ioclient.js"></script>
+
 <script type="text/javascript">
   const pred = "";
   const client = new IOClient('http://localhost:5000')
@@ -363,6 +370,7 @@
   client.on('data', (...args) => {
       const time = new Date()
       console.log("DATA: ", args[0].data);
+      emgData = args[0].data[0];
       let x_traces = []
       let y_traces = []
       for (let i = 0; i < args[0].data.length; i++) {
