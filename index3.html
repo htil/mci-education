@@ -16,7 +16,6 @@
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
-
   <script src="https://cdn.plot.ly/plotly-2.3.1.min.js"></script>
   <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -26,6 +25,11 @@
 <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
 <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
 <script src="https://unpkg.com/blockly/msg/en.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript" src="js/BCIDevice.min.js"></script>
 
 <script>
   let emgData = "";
@@ -88,7 +92,7 @@
 </div>
 
 <div style="position: absolute; right: 10px; top: 140px">
-  <button id="bluetooth" class="huge circular ui blue icon button" style="display: inherit; margin-left: auto">
+  <button id="connect" class="huge circular ui blue icon button" style="display: inherit; margin-left: auto">
     <i class="icon bluetooth"></i>
   </button>
 </div>
@@ -340,7 +344,6 @@
 </body>
 <!--
 <script type="text/javascript" src="js/bci.min.js"></script>
-<script type="text/javascript" src="js/BCIDevice.build.js"></script>
 <script src="js/physio.js"></script>
 -->
 <script>
