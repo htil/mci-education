@@ -34,6 +34,7 @@
 <script>
   let emgData = "";
   let threshold = 1;
+  var testVar;
 </script>
 
 <script src="js/wait_block.js"></script>
@@ -374,24 +375,24 @@
       const time = new Date()
       console.log("DATA: ", args[0].data);
       emgData = args[0].data[0];
-      let x_traces = []
-      let y_traces = []
-      for (let i = 0; i < args[0].data.length; i++) {
-          x_traces.push([time])
-          y_traces.push([args[0].data[i]])
-      }
-      const next = {
-          x: x_traces,
-          y: y_traces
-      }
-      const lower = time.setSeconds(time.getSeconds() - 15)
-      const upper = time.setSeconds(time.getSeconds() + 15)
-      const view = {
-          xaxis: {
-              type: 'date',
-              range: [lower, upper]
-          }
-      }
+      // let x_traces = []
+      // let y_traces = []
+      // for (let i = 0; i < args[0].data.length; i++) {
+      //     x_traces.push([time])
+      //     y_traces.push([args[0].data[i]])
+      // }
+      // const next = {
+      //     x: x_traces,
+      //     y: y_traces
+      // }
+      // const lower = time.setSeconds(time.getSeconds() - 15)
+      // const upper = time.setSeconds(time.getSeconds() + 15)
+      // const view = {
+      //     xaxis: {
+      //         type: 'date',
+      //         range: [lower, upper]
+      //     }
+      // }
   })
 
   client.on('prediction', (args) => {

@@ -27,6 +27,7 @@ var groundLayer, coinLayer;
 var text;
 var score = 0;
 var jumpAction = false;
+var wrapping = true;
 
 function preload() {
   // map made with Tiled in JSON format
@@ -118,25 +119,39 @@ function collectCoin(sprite, tile) {
 }
 
 function update(time, delta) {
-  if (cursors.left.isDown)
-  {
-      player.body.setVelocityX(-200);
-      player.anims.play('walk', true); // walk left
-      player.flipX = true; // flip the sprite to the left
+
+  // Player runs automatically.
+  player.body.setVelocityX(200);
+  player.anims.play('walk', true);
+  player.flipX = false; // use the original sprite looking to the right
+
+  // Check if the player got to the end of the scene, take it back to the origin.
+  if (player.x >= 2060) {
+    player.x = 0.5;
   }
-  else if (cursors.right.isDown)
-  {
-      player.body.setVelocityX(200);
-      player.anims.play('walk', true);
-      player.flipX = false; // use the original sprite looking to the right
-  } else {
-      player.body.setVelocityX(0);
-      player.anims.play('idle', true);
-  }
+
+  // OLD CODE: Click event listener to move the player.
+  // if (cursors.left.isDown) {
+  //     player.body.setVelocityX(-200);
+  //     player.anims.play('walk', true); // walk left
+  //     player.flipX = true; // flip the sprite to the left
+  // } else if (cursors.right.isDown) {
+  //   console.log(player.x)
+      
+  //     player.body.setVelocityX(200);
+  //     player.anims.play('walk', true);
+  //     player.flipX = false; // use the original sprite looking to the right
+  // } else {
+  //     player.body.setVelocityX(0);
+  //     player.anims.play('idle', true);
+  // }
   // jump 
   // console.log(cursors.up.isDown && player.body.onFloor())
-  if (emgData > threshold)
-  {
-      player.body.setVelocityY(-500);
+
+  console.log(testVar);
+
+  // EMG Threshold check to make the player JUMP.
+  if (emgData > threshold) {
+    player.body.setVelocityY(-500);
   }
 }

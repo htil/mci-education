@@ -57,7 +57,7 @@ var BlocklyInterface = function(){
             window.pan(cmd)
             console.log("PAN ", cmd)
         }
-        interpreter.setProperty(globalObject, 'pan', 
+        interpreter.setProperty(globalObject, 'testVar', 
             interpreter.createNativeFunction(wrapper));
 
 
